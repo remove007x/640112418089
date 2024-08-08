@@ -1,0 +1,4 @@
+input[type="number"], input[type="text"] {
+    border-radius: 4px;
+    background-color: #f2f2f2;
+}

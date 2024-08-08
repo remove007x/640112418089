@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f4f4f4;
+        }
+        .calculator {
+            width: 320px;
+            background-color: #333;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 5px 10px rgba(0, 0, 0, 0.3);
+        }
+        #display {
+            width: 100%;
+            height: 50px;
+            background-color: #000;
+            color: #fff;
+            text-align: right;
+            padding: 10px;
+            font-size: 24px;
+            border: none;
+            border-radius: 5px;
+            margin-bottom: 10px;
+        }
+        .button {
+            width: 70px;
+            height: 70px;
+            margin: 5px;
+            font-size: 24px;
+            border: none;
+            border-radius: 10px;
+            color: #fff;
+            background-color: #666;
+            cursor: pointer;
+        }
+        .button:active {
+            background-color: #555;
+        }
+        .button.operator {
+            background-color: #f08a24;
+        }
+        .button.operator:active {
+            background-color: #e07b1b;
+        }
+        .row {
+            display: flex;
+            justify-content: space-between;
+        }
+    </style>
+</head>
+<body>
+    <div class="calculator">
+        <input type="text" id="display" disabled>
+        <div class="row">
+            <button class="button" onclick="clearDisplay()">C</button>
+            <button class="button operator" onclick="appendOperator('/')">/</button>
+            <button class="button operator" onclick="appendOperator('*')">*</button>
+            <button class="button operator" onclick="appendOperator('-')">-</button>
+        </div>
+        <div class="row">
+            <button class="button" onclick="appendNumber(7)">7</button>
+            <button class="button" onclick="appendNumber(8)">8</button>
+            <button class="button" onclick="appendNumber(9)">9</button>
+            <button class="button operator" onclick="appendOperator('+')">+</button>
+        </div>
+        <div class="row">
+            <button class="button" onclick="appendNumber(4)">4</button>
+            <button class="button" onclick="appendNumber(5)">5</button>
+            <button class="button" onclick="appendNumber(6)">6</button>
+            <button class="button" style="visibility: hidden;"></button>
+        </div>
+        <div class="row">
+            <button class="button" onclick="appendNumber(1)">1</button>
+            <button class="button" onclick="appendNumber(2)">2</button>
+            <button class="button" onclick="appendNumber(3)">3</button>
+            <button class="button" onclick="calculateResult()">=</button>
+        </div>
+        <div class="row">
+            <button class="button" style="flex-grow: 2;" onclick="appendNumber(0)">0</button>
+            <button class="button" onclick="appendNumber('.')">.</button>
+        </div>
+    </div>
+
+    <script>
+        function clearDisplay() {
+            document.getElementById("display").value = "";
+        }
+
+        function appendNumber(number) {
+            document.getElementById("display").value += number;
+        }
+
+        function appendOperator(operator) {
+            let display = document.getElementById("display");
+            let lastChar = display.value[display.value.length - 1];
+            if ("+-*/".includes(lastChar)) {
+                display.value = display.value.slice(0, -1) + operator;
+            } else {
+                display.value += operator;
+            }
+        }
+
+        function calculateResult() {
+            try {
+                let result = eval(document.getElementById("display").value);
+                document.getElementById("display").value = result;
+            } catch {
+                document.getElementById("display").value = "Error";
+            }
+        }
+    </script>
+</body>
+</html>
